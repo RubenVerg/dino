@@ -12,25 +12,35 @@
 
 	A collection of Chrome Dino resources.
 
-	<h2>
+	<h2 class='mt-2'>
 		Resources
 	</h2>
 
-	<h3>
+	<h3 class='mt-2'>
 		Images
 	</h3>
 
-	<h4>
+	<h4 class='mt-2'>
 		Realistic-ish Color
 	</h4>
 
 	<img src="realistic_color.png" alt="Realistic-ish Color">
 
-	<div class="alert alert-warning">Sucks at night!</div>
+	<div class="alert alert-warning mt-2">Sucks at night!</div>
 
-	<input type="hidden" id="realisticcolor64">
+	<button type="button" id="realisticcolor" class="btn btn-primary">
+		Copy to clipboard
+	</button>
 
-	<button type="button" id="realisticcolor" class="btn btn-primary">Copy to clipboard</button>
+	<h4 class="mt-2">
+		Realistic-ish Grayscale
+	</h4>
+
+	<img src="realistic_gray.png" alt="Realistic-ish Grayscale">
+
+	<button type="button" id="realisticgray" class="btn btn-primary">
+		Copy to clipboard
+	</button>
 
 
 	<script>
@@ -41,13 +51,17 @@
 				reader.onloadend = () => resolve(reader.result)
 				reader.onerror = reject
 				reader.readAsDataURL(blob)
-			}))
+			}));
 
+		const set = name => {
+			toDataURL(`https://raw.githubusercontent.com/RubenVerg/dino/master/${name}.png`)
+				.then(d => {
+					document.getElementById(name.split('_').join('')).dataset.clipboardText = d;
+				});
+		}
 
-		toDataURL('https://raw.githubusercontent.com/RubenVerg/dino/master/realistic_color.png')
-			.then(dataUrl => {
-				document.getElementById('realisticcolor64').value = dataUrl;
-			});
+		set('realistic_color');
+		set('realistic_gray');
 	</script>
 	<script src="clipboard.min.js"></script>
 	<script src='https://code.jquery.com/jquery-3.4.1.slim.min.js'
@@ -57,7 +71,8 @@
 	<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'
 		integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin=anonymous></script>
 	<script>
-		let RealisticColor = new ClipboardJS('#realisticcolor');
+		const RealisticColor = new ClipboardJS('#realisticcolor');
+		const RealisticGray = new ClipboardJS('#realisticgray');
 	</script>
 </body>
 
