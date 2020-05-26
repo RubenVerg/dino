@@ -10,7 +10,9 @@
 		Dino
 	</h1>
 
-	A collection of Chrome Dino resources.
+	<p>
+		A collection of Chrome Dino resources.
+	</p>
 
 	<h2 class='mt-2'>
 		Resources
@@ -42,6 +44,75 @@
 		Copy to clipboard
 	</button>
 
+	<h3 class="mt-2">
+		Sounds
+	</h3>
+
+	<h4 class="mt-2">
+		Minecraft
+	</h4>
+
+	<audio src="ding.mp3" controls class='d-block w-100 mt-2'></audio>
+
+	Ding — recommended for Jump
+
+	<button type="button" id="ding" class="btn btn-primary">
+		Copy to clipboard
+	</button>
+
+	<audio src="experience.mp3" controls="controls" class="d-block w-100 mt-2"></audio>
+
+	Experience — recommended for Score
+
+	<button type="button" id="experience" class="btn btn-primary">
+		Copy to clipboard
+	</button>
+
+	<audio src="oof.mp3" controls="controls" class="d-block w-100 mt-2"></audio>
+
+	Oof — recommended for Death
+
+	<button type="button" id="oof" class="btn btn-primary">
+		Copy to clipboard
+	</button>
+
+	<h2 class="mt-2">
+		Usage
+	</h2>
+
+	<p>
+		In the Developer's Console (press <kbd>F12</kbd> to access), open the Elements panel, open the
+		<code>&lt;body></code>
+		(if it isn't opened already), open <code>&lt;div id="offline-resources"></code>. There should be two
+		<code>&lt;img></code> tags and a <code>&lt;template></code> tag.
+	</p>
+
+	<h3 class="mt-2">
+		Images
+	</h3>
+
+	<p>
+		Double click on the url (that starts with <code>data:image/png;base64,</code>) in the <code>&lt;img></code> tag
+		where
+		the ID is <code>offline-resources-1x</code>. Paste the image you copied by hitting
+		<kbd><kbd>CTRL/⌘</kbd>+<kbd>V</kbd></kbd>.
+	</p>
+
+	<h3 class="mt-2">
+		Audio
+	</h3>
+
+	<p>
+		Open the <code>&lt;template></code> and the <code>#document-fragment</code> contained. There should be three
+		<code>&lt;audio></code> tags. To edit one, double-click the <code>data:audio/mpeg;base64,</code> link and paste
+		using <kbd><kbd>CTRL/⌘</kbd>+<kbd>V</kbd></kbd>.
+	</p>
+
+	<p>
+		<code>offline-sound-press</code> is the sound played when you jump,
+		<code>offline-sound-hit</code> is the sound played when you die and
+		<code>offline-sound-reached</code> is the sound played when you score (every 100 points).
+	</p>
 
 	<script>
 		const toDataURL = url => fetch(url)
@@ -53,8 +124,8 @@
 				reader.readAsDataURL(blob)
 			}));
 
-		const set = name => {
-			toDataURL(`https://raw.githubusercontent.com/RubenVerg/dino/master/${name}.png`)
+		const set = (name, type = 'png') => {
+			toDataURL(`https://raw.githubusercontent.com/RubenVerg/dino/master/${name}.${type}`)
 				.then(d => {
 					document.getElementById(name.split('_').join('')).dataset.clipboardText = d;
 				});
@@ -62,6 +133,9 @@
 
 		set('realistic_color');
 		set('realistic_gray');
+		set('ding', 'mp3');
+		set('experience', 'mp3');
+		set('oof', 'mp3');
 	</script>
 	<script src="clipboard.min.js"></script>
 	<script src='https://code.jquery.com/jquery-3.4.1.slim.min.js'
@@ -73,6 +147,9 @@
 	<script>
 		const RealisticColor = new ClipboardJS('#realisticcolor');
 		const RealisticGray = new ClipboardJS('#realisticgray');
+		const Ding = new ClipboardJS('#ding');
+		const Experience = new ClipboardJS('#experience');
+		const Oof = new ClipboardJS('#oof');
 	</script>
 </body>
 
