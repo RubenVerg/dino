@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="https://files.rubenverg.com/bootstrap/dist/bootstrap.css">
+</head>
+
+<body class='m-4'>
+	<h1>
+		Dino
+	</h1>
+
+	A collection of Chrome Dino resources.
+
+	<h2>
+		Resources
+	</h2>
+
+	<h3>
+		Images
+	</h3>
+
+	<h4>
+		Realistic-ish Color
+	</h4>
+
+	<img src="realistic_color.png" alt="Realistic-ish Color">
+
+	<div class="alert alert-warning">Sucks at night!</div>
+
+	<input type="hidden" id="realisticcolor64">
+
+	<button type="button" id="realisticcolor" class="btn btn-primary">Copy to clipboard</button>
+
+
+	<script>
+		const toDataURL = url => fetch(url)
+			.then(response => response.blob())
+			.then(blob => new Promise((resolve, reject) => {
+				const reader = new FileReader()
+				reader.onloadend = () => resolve(reader.result)
+				reader.onerror = reject
+				reader.readAsDataURL(blob)
+			}))
+
+
+		toDataURL('https://raw.githubusercontent.com/RubenVerg/dino/master/realistic_color.png')
+			.then(dataUrl => {
+				document.getElementById('realisticcolor64').value = dataUrl;
+			});
+	</script>
+	<script src="clipboard.min.js"></script>
+	<script src='https://code.jquery.com/jquery-3.4.1.slim.min.js'
+		integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin=anonymous></script>
+	<script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'
+		integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin=anonymous></script>
+	<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'
+		integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin=anonymous></script>
+	<script>
+		let RealisticColor = new ClipboardJS('#realisticcolor');
+	</script>
+</body>
+
+</html>
